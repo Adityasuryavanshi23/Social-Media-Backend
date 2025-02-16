@@ -14,6 +14,16 @@ export const createPost = async (req, res) => {
     }
 }
 
+// get all post by user id 
+export const getPostByUserId = async (req, res) => {
+    const userId = req.params.id
+    try {
+        const post = await postModel.find({ userId: userId })
+        res.status(200).json(post)
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
 
 // get a post
 export const getPost = async (req, res) => {
