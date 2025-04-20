@@ -17,11 +17,18 @@ const UserSchema = mongoose.Schema(
         },
         lastname: {
             type: String,
-            required: true
         },
         isAdmin: {
             type: Boolean,
             default: false
+        },
+        oauthType: {
+            type: String,
+            default: 'local'
+        },
+        username: {
+            type: String,
+            unique: true
         },
         profilePicture: String,
         coverPicture: String,

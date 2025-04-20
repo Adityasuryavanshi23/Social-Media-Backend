@@ -21,7 +21,21 @@ export const getAllUsers = async (req, res) => {
     }
 }
 
-
+// Search Users by firstname or username
+export const searchUsers = async (req, res) => {
+    const { query } = req.query;
+    try {
+        const users = await UserModel.find({
+            $or: [
+                { firstname: { $regex: query, $options: 'i' } },
+                { username: { $regex: query, $options: 'i' } }
+            ]
+        }).select('-password -about -followers -following -createdAt -updatedAt -isAdmin -oauthType');
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+}
 
 // get a user
 export const getUser = async (req, res) => {
